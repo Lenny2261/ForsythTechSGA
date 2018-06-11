@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forsyth Tech Events</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/css/JiSlider.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/flexslider.css" type="text/css" media="screen" property="" />
+    <link href="~/css/font-awesome.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="//fonts.googleapis.com/css?family=Oswald:400,500,600,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+
+</head>
+<body>
+    <section class="w3layouts-header">
+        <div class="container">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-gradient-secondary">
+                    <h1>
+                        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                            <img src="~/images/fotech.png" />
+                        </a>
+                    </h1>
+                    <button class="navbar-toggler ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-lg-auto text-center">
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="@Url.Action("Index", "Home")">
+                                    Home
+
+                                </a>
+                            </li>
+                            <li class="nav-item  mr-3">
+                                <a class="nav-link" href="@Url.Action("Index", "Events")">Events</a>
+                            </li>
+                            <li class="nav-item dropdown mr-3">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Club Info
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Clubs")">Clubs</a>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("Events", "Clubs")">Your Clubs Events</a>
+                                    }
+                                </div>
+                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item mr-3">
+                                    <a class="nav-link" href="@Url.Action("Index", "Points")">Redeem Points</a>
+                                </li>
+                            }
+                            @Html.Action("_LoginPartial", "Account")
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+        </div>
+    </section>
+
+    <section class="banner-1"></section>
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>*@
+    @*<div class="container body-content">*@
+    @RenderBody()
+
+    <section class="copyright-w3layouts py-xl-4 py-3">
+        <div class="container">
+            <p>
+                © 2018 John Mahoney . Design by W3layouts
+            </p>
+        </div>
+    </section>
+    @*</div>*@
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/js/JiSlider.js"></script>
+    <script>
+
+        $(window).load(function () {
+            $('#JiSlider').JiSlider({
+                color: '#fff',
+                start: 1,
+                reverse: false
+            }).addClass('ff')
+        })
+    </script>
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <script src="~/js/jquery.countup.js"></script>
+    <script>
+        $('.counter').countUp();
+    </script>
+    <script defer src="~/js/jquery.flexslider.js"></script>
+    <script type="text/javascript">
+
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                start: function (slider) {
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
