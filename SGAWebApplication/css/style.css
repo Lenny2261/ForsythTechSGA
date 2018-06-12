@@ -130,7 +130,7 @@ li.nav-item {
 	font-weight: 600;
 }
 .dropdown-item:hover, .dropdown-item:focus {
-    color: #eb1d50;
+    color: #004990;
     text-decoration: none;
     background-color: transparent;
 }
@@ -375,7 +375,7 @@ h4.modal-title {
     letter-spacing: 4px;
     font-size: 40px;
     text-align: center;
-    color:#eb1d50;
+    color: #004990;
     text-transform: uppercase;
     position: relative;
     margin-top: 0;
@@ -408,7 +408,7 @@ h4.modal-title {
     text-align: right;
 }
 .categories-left1 {
-    background: url(../images/1.jpg) no-repeat center;
+    background: url(../images/club.jpg) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -1297,16 +1297,16 @@ li.nav-item {
 .dropdown-divider {
     background-color: #000000;
 }
-.dropdown-item:focus, .dropdown-item:hover {
-   color: #ff3d00;
-    text-decoration: none;
-    background-color: #000000;
-}
-.dropdown-item.active, .dropdown-item:active {
-    color: #ff3d00;
-    text-decoration: none;
-    background-color: #000000;
-}
+    .dropdown-item:focus, .dropdown-item:hover {
+        color: #004990;
+        text-decoration: none;
+        background-color: #000000;
+    }
+    .dropdown-item.active, .dropdown-item:active {
+        color: #004990;
+        text-decoration: none;
+        background-color: #000000;
+    }
 .navbar-light .navbar-nav .nav-link {
     color: #fff;
 }

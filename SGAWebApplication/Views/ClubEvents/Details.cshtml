@@ -1,0 +1,74 @@
+﻿@model SGAWebApplication.Models.ClubEvents
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ClubEvents</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Club.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Club.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PointKey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PointKey)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PointValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PointValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

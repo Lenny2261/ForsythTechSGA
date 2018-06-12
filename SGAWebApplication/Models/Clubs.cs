@@ -11,14 +11,15 @@ namespace SGAWebApplication.Models
 
         public Clubs()
         {
-            this.Memebers = new HashSet<ApplicationUser>();
+            this.Members = new HashSet<ApplicationUser>();
         }
 
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public decimal Budget { get; set; }
+        public string Picture { get; set; }
 
-        public virtual ICollection<ApplicationUser> Memebers { get; set; }
+        public virtual ICollection<ApplicationUser> Members { get; set; }
     }
 }

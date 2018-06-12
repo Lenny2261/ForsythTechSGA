@@ -10,11 +10,6 @@ namespace SGAWebApplication.Models
     public class ClubEvents
     {
 
-        public ClubEvents()
-        {
-            this.Attendees = new HashSet<ApplicationUser>();
-        }
-
         public int Id { get; set; }
 
         [Required]
@@ -22,16 +17,25 @@ namespace SGAWebApplication.Models
         public string Description { get; set; }
 
         [Required]
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(50)]
         [Index(IsUnique = true)]
         public string PointKey { get; set; }
+
         [Required]
         public int PointValue { get; set; }
-
+        
         public int EventCount { get; set; }
         public int ClubId { get; set; }
         public string Date { get; set; }
 
         public virtual Clubs Club { get; set; }
         public virtual ICollection<ApplicationUser> Attendees { get; set; }
+
+        public ClubEvents()
+        {
+            this.Attendees = new HashSet<ApplicationUser>();
+        }
+
     }
 }

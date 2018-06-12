@@ -23,11 +23,15 @@ namespace SGAWebApplication.Models
         public string Description { get; set; }
 
         [Required]
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(50)]
         [Index(IsUnique = true)]
         public string RegularKey { get; set; }
         [Required]
         public int RegularValue { get; set; }
         [Required]
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(50)]
         [Index(IsUnique = true)]
         public string VolunteerKey { get; set; }
         [Required]

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -11,21 +12,21 @@ namespace SGAWebApplication.Models
     public class ApplicationUser : IdentityUser
     {
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Points { get; set; }
+        public string UserRole { get; set; }
+        public int? ClubId { get; set; }
+
+        public virtual Clubs Club { get; set; }
+        public virtual ICollection<Events> Events { get; set; }
+        public virtual ICollection<ClubEvents> ClubEvents { get; set; }
+
         public ApplicationUser()
         {
             this.Events = new HashSet<Events>();
             this.ClubEvents = new HashSet<ClubEvents>();
         }
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int Points { get; set; }
-        public string UserRole { get; set; }
-        public int ClubId { get; set; }
-
-        public virtual Clubs Club { get; set; }
-        public virtual ICollection<Events> Events { get; set; }
-        public virtual ICollection<ClubEvents> ClubEvents { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

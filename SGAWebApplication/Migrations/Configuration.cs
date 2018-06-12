@@ -67,7 +67,7 @@ namespace SGAWebApplication.Migrations
             userId = userManager.FindByEmail("jlegin@forsythtech.edu").Id;
             userManager.AddToRole(userId, "Admin");
 
-            if (!context.Users.Any(r => r.Email == "mahoneyj0253@forsythtech.edu"))
+            if (!context.Users.Any(r => r.Email == "sdorsett@forsythtech.edu"))
             {
                 userManager.Create(new ApplicationUser
                 {
@@ -130,11 +130,11 @@ namespace SGAWebApplication.Migrations
             userManager.AddToRole(userId, "Student");
 
             context.clubs.AddOrUpdate(
-                    new Clubs { Id = 1, Name = "Mathletes", Budget = 100 },
-                    new Clubs { Id = 2, Name = "AITP", Budget = 200 },
-                    new Clubs { Id = 3, Name = "Music Lovers", Budget = 50 },
-                    new Clubs { Id = 4, Name = "Anime Club", Budget = 1500 },
-                    new Clubs { Id = 5, Name = "Literature Club", Budget = 100 }
+                    new Clubs { Id = 1, Name = "Mathletes", Budget = 100, Picture = "/ClubPictures/math.jpg" },
+                    new Clubs { Id = 2, Name = "AITP", Budget = 200, Picture = "/ClubPictures/tech.png" },
+                    new Clubs { Id = 3, Name = "Music Lovers", Budget = 50, Picture = "/ClubPictures/music.jpg" },
+                    new Clubs { Id = 4, Name = "Anime Club", Budget = 1500, Picture = "/ClubPictures/anime.jpg" },
+                    new Clubs { Id = 5, Name = "Literature Club", Budget = 100, Picture = "/ClubPictures/lit.jpg" }
             );
 
             context.clubEvents.AddOrUpdate(

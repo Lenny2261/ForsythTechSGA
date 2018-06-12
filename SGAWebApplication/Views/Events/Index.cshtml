@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SGAWebApplication.Models.Events>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="w3-agile-services py-5">
+    <div class="container py-md-4 mt-md-3">
+        <h3 class="heading-agileinfo">EVENTS <span>Join us at These Fun Events</span></h3>
+        <div class="agileits-services mt-md-5 pt-5">
+            @foreach (var item in Model)
+            {
+                <div class="services-right-grid">
+                    <div class="se-top">
+                        <div class="services-icon">
+                            <img src="@item.Picture" />
+                        </div>
+                        <div class="services-icon-info">
+                            <h5>@item.Name</h5>
+                            <p>@item.Description</p>
+                            <p>Date: @item.Date</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Attending Points: @item.RegularValue
+                                </div>
+                                <div class="col-md-6">
+                                    Volunteer Points: @item.VolunteerValue
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
