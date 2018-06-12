@@ -19,7 +19,9 @@ namespace SGAWebApplication.Models
         public string Name { get; set; }
         public decimal Budget { get; set; }
         public string Picture { get; set; }
+        public string AdvisorId { get; set; }
 
+        public virtual ApplicationUser Advisor { get; set; }
         public virtual ICollection<ApplicationUser> Members { get; set; }
     }
 }

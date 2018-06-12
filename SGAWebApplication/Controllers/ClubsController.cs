@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SGAWebApplication.Models;
 
 namespace SGAWebApplication.Controllers
@@ -19,11 +20,20 @@ namespace SGAWebApplication.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(db.clubs.ToList());
+
+            var UserId = User.Identity.GetUserId();
+            if (User.IsInRole("Teacher"))
+            {
+                var teacherClubEvents = db.clubs.Where(c => c.AdvisorId == UserId);
+
+                return View(teacherClubEvents);
+            }
+            var currentClub = db.clubs.Where(c => c.Members.Select(m => m.Id).Contains(UserId));
+            return View(db.clubs.Except(currentClub));
         }
 
         // GET: Clubs/Details/5
-        [AllowAnonymous]
+        [Authorize(Roles = "Teacher,Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)

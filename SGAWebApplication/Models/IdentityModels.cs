@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
@@ -16,9 +18,10 @@ namespace SGAWebApplication.Models
         public string LastName { get; set; }
         public int Points { get; set; }
         public string UserRole { get; set; }
-        public int? ClubId { get; set; }
+        public Nullable<int> ClubsId { get; set; }
 
-        public virtual Clubs Club { get; set; }
+
+        public virtual Clubs Clubs { get; set; }
         public virtual ICollection<Events> Events { get; set; }
         public virtual ICollection<ClubEvents> ClubEvents { get; set; }
 

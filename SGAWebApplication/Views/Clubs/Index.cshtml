@@ -9,12 +9,19 @@
                 <div class="services-right-grid">
                     <div class="se-top">
                         <div class="services-icon-info">
-                            <img src="@item.Picture"/>
+                            <img src="@item.Picture" />
                             <h5>@item.Name</h5>
                             <br />
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a href="@Url.Action("Join", "Clubs")">Join Now</a>
+                                if (User.IsInRole("Teacher"))
+                                {
+                                    <a href="@Url.Action("Details", "Clubs", new { id = item.Id })">Club Details</a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Join", "Clubs")">Join Now</a>
+                                }
                             }
                         </div>
                     </div>

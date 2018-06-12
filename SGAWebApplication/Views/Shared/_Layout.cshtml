@@ -49,7 +49,7 @@
                                     <a class="dropdown-item" href="@Url.Action("Index", "Clubs")">Clubs</a>
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <a class="dropdown-item" href="@Url.Action("Events", "Clubs")">Your Clubs Events</a>
+                                        <a class="dropdown-item" href="@Url.Action("Index", "ClubEvents")">Your Clubs Events</a>
                                     }
                                 </div>
                             </li>

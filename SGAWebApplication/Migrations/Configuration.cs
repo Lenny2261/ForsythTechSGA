@@ -375,7 +375,7 @@ namespace SGAWebApplication.Migrations
                     VolunteerKey = "28JNW-283JD",
                     VolunteerValue = 50,
                     Date = "9/24/2018 8AM to 9/28/2018 12PM",
-                    Picture = "~/EventPictures/FallFest.jpg"
+                    Picture = "/EventPictures/FallFest.jpg"
                 },
                 new Events
                 {
@@ -386,7 +386,7 @@ namespace SGAWebApplication.Migrations
                     VolunteerKey = "CBH63-DHF34",
                     VolunteerValue = 50,
                     Date = "3/20/2019 8AM to 3/24/2019 12PM",
-                    Picture = "~/EventPictures/SpringFling.jpg"
+                    Picture = "/EventPictures/SpringFling.jpg"
                 },
                 new Events
                 {
@@ -397,7 +397,7 @@ namespace SGAWebApplication.Migrations
                     VolunteerKey = "KDME2-2DN43",
                     VolunteerValue = 40,
                     Date = "10/19/2018 8AM to 5PM",
-                    Picture = "~/EventPictures/JobFair.jpg"
+                    Picture = "/EventPictures/JobFair.jpg"
                 },
                 new Events
                 {
@@ -408,7 +408,7 @@ namespace SGAWebApplication.Migrations
                     VolunteerKey = "CGDHG-237IH",
                     VolunteerValue = 50,
                     Date = "11/30/2018 9AM to 5PM",
-                    Picture = "~/EventPictures/BakeSale.jpg"
+                    Picture = "/EventPictures/BakeSale.jpg"
                 },
                 new Events
                 {
@@ -419,7 +419,7 @@ namespace SGAWebApplication.Migrations
                     VolunteerKey = "OLKDY-27364",
                     VolunteerValue = 50,
                     Date = "10/24/2018 8AM to 10/27/2018 12PM",
-                    Picture = "~/EventPictures/CultureFest.jpg"
+                    Picture = "/EventPictures/CultureFest.jpg"
                 }
             );
 

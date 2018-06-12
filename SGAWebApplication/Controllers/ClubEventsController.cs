@@ -6,22 +6,34 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SGAWebApplication.Models;
 
 namespace SGAWebApplication.Controllers
 {
+
     public class ClubEventsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ClubEvents
+        [Authorize(Roles = "Student,Admin,Teacher")]
         public ActionResult Index()
         {
-            var clubEvents = db.clubEvents.Include(c => c.Club);
+            var UserId = User.Identity.GetUserId();
+            if (User.IsInRole("Teacher"))
+            {
+                var teacherClubEvents = db.clubEvents.Where(e => e.Club.AdvisorId == UserId);
+
+                return View(teacherClubEvents);
+            }
+
+            var clubEvents = db.clubEvents.Include(c => c.Club).Where(c => c.Club.Members.Select(m => m.Id).Contains(UserId));
             return View(clubEvents.ToList());
         }
 
         // GET: ClubEvents/Details/5
+        [Authorize(Roles = "Student,Admin,Teacher")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +49,7 @@ namespace SGAWebApplication.Controllers
         }
 
         // GET: ClubEvents/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.ClubId = new SelectList(db.clubs, "Id", "Name");
@@ -47,6 +60,7 @@ namespace SGAWebApplication.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description,PointKey,PointValue,EventCount,ClubId,Date")] ClubEvents clubEvents)
         {
@@ -62,6 +76,7 @@ namespace SGAWebApplication.Controllers
         }
 
         // GET: ClubEvents/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,6 +96,7 @@ namespace SGAWebApplication.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,PointKey,PointValue,EventCount,ClubId,Date")] ClubEvents clubEvents)
         {
@@ -95,6 +111,7 @@ namespace SGAWebApplication.Controllers
         }
 
         // GET: ClubEvents/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,6 +128,7 @@ namespace SGAWebApplication.Controllers
 
         // POST: ClubEvents/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
