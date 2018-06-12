@@ -34,6 +34,8 @@ namespace SGAWebApplication.Models
         public int VolunteerValue { get; set; }
 
         public int EventCount { get; set; }
+        public string Date { get; set; }
+        public string Picture { get; set; }
 
         public virtual ICollection<ApplicationUser> Attendees { get; set; }
 

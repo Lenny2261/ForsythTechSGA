@@ -29,6 +29,7 @@ namespace SGAWebApplication.Models
 
         public int EventCount { get; set; }
         public int ClubId { get; set; }
+        public string Date { get; set; }
 
         public virtual Clubs Club { get; set; }
         public virtual ICollection<ApplicationUser> Attendees { get; set; }

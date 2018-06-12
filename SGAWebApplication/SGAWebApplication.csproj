@@ -227,6 +227,11 @@
     <Content Include="css\JiSlider.css" />
     <Content Include="css\smoothbox.css" />
     <Content Include="css\style.css" />
+    <Content Include="EventPictures\BakeSale.jpg" />
+    <Content Include="EventPictures\CultureFest.jpg" />
+    <Content Include="EventPictures\FallFest.jpg" />
+    <Content Include="EventPictures\JobFair.jpg" />
+    <Content Include="EventPictures\SpringFling.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
