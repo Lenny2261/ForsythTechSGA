@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row about-tp mt-md-5 pt-5">
         <div class="col-md-6 text-right">
-            @using (Html.BeginForm("Event", "Points", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Events", "Points", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 <h4>Redeem your event points here.</h4>
@@ -15,30 +15,81 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.Label("Event Key", new { @class = "control-label" })
-                        @Html.TextBox("PointKey")
-                        @Html.ValidationMessage("PointKey", "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(m => m.eventKey)
+                    @Html.ValidationMessageFor(m => m.eventKey, "", new { @class = "text-danger" })
                 </div>
                 <button type="submit" class="btn-primary">Get Those Points</button>
             }
             <br />
             <br />
         </div>
-            <div class="col-md-6">
-                @using (Html.BeginForm("ClubEvent", "Points", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>Redeem your club event points here.</h4>
-                    <br />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.Label("Club Event Key", new { @class = "control-label" })
-                        @Html.TextBox("ClubKey")
-                        @Html.ValidationMessage("ClubKey", "", new { @class = "text-danger" })
-                    </div>
-                    <button type="submit" style="margin-left: 157px" class="btn-primary">Get Those Points</button>
-                }
+        <div class="col-md-6">
+            @using (Html.BeginForm("ClubEvents", "Points", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Redeem your club event points here.</h4>
                 <br />
-                <br />
-            </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Club Event Key", new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.clubKey)
+                    @Html.ValidationMessageFor(m => m.clubKey, "", new { @class = "text-danger" })
+                </div>
+                <button type="submit" style="margin-left: 157px" class="btn-primary">Get Those Points</button>
+            }
+            <br />
+            <br />
+        </div>
     </div>
 </div>
+
+
+@section scripts{
+    <script>
+        var check = '@TempData["Accepted"]';
+        if (check == "Acc") {
+            window.onload = function () {
+                swal(
+                    'Thank you for attending!',
+                    "Your points have been added!",
+                    'success'
+                )
+            }
+        }
+        else if (check == "Vol") {
+            swal(
+                'Thank you for volunteering!',
+                "Your points have been added!",
+                'success'
+            )
+        }
+        else if (check == "NotIn") {
+            swal({
+                type: 'error',
+                title: 'Not in The Club',
+                text: 'To get the points from a club event you need to join the club',
+            })
+        }
+        else if (check == "Not") {
+            swal({
+                type: 'error',
+                title: 'Not a Valid Key',
+                text: 'The key you entered was wrong try again',
+            })
+        }
+        else if (check == "Already") {
+            swal({
+                type: 'error',
+                title: 'You Have Already Submitted This Key',
+                text: 'The key you entered has already been used by you for this event',
+            })
+        }
+        else if (check == "Nothing") {
+            swal({
+                type: 'error',
+                title: 'You Entered Nothing',
+                text: 'Please enter a value to get points',
+            })
+        }
+    </script>
+}

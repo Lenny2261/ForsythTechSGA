@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,27 +17,104 @@ namespace SGAWebApplication.Controllers
 
         public ActionResult Index()
         {
-            var model = new PointsViewModel
-            {
-                clubEvents = db.clubEvents.ToList(),
-                events = db.events.ToList()
-            };
-
-            return View(model);
+            return View();
         }
 
-        public ActionResult Events()
+        public ActionResult Events([Bind(Include = "eventKey")] PointsViewModel key)
         {
             var userId = User.Identity.GetUserId();
             var currentUser = db.Users.Find(userId);
-            if(db.events.Where(e => e.Attendees.Select(a => a.Id).Contains(userId)).FirstOrDefault() != null)
+            var currentPoints = currentUser.Points;
+
+            if(key.eventKey == null)
             {
-                TempData["Accepted"] = "Already";
+                TempData["Accepted"] = "Nothing";
                 return RedirectToAction("Index");
             }
 
+            foreach(var events in db.events.ToList())
+            {
+                if(events.RegularKey == key.eventKey)
+                {
 
+                    if(events.Attendees.Select(a => a.Id).Contains(userId) == true)
+                    {
+                        TempData["Accepted"] = "Already";
+                        return RedirectToAction("Index");
+                    }
 
+                    events.Attendees.Add(currentUser);
+                    currentUser.Points = currentUser.Points + events.RegularValue;
+                    events.EventCount = events.EventCount + 1;
+                    TempData["Accepted"] = "Acc";
+                }
+                else if(events.VolunteerKey == key.eventKey)
+                {
+
+                    if (events.Attendees.Select(a => a.Id).Contains(userId) == true)
+                    {
+                        TempData["Accepted"] = "Already";
+                        return RedirectToAction("Index");
+                    }
+
+                    events.Attendees.Add(currentUser);
+                    currentUser.Points = currentUser.Points + events.VolunteerValue;
+                    events.EventCount = events.EventCount + 1;
+                    TempData["Accepted"] = "Vol";
+                }
+            }
+
+            if(currentPoints == currentUser.Points)
+            {
+                TempData["Accepted"] = "Not";
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ClubEvents([Bind(Include = "clubKey")] PointsViewModel key)
+        {
+            var userId = User.Identity.GetUserId();
+            var currentUser = db.Users.Find(userId);
+            var currentPoints = currentUser.Points;
+
+            if (key.clubKey == null)
+            {
+                TempData["Accepted"] = "Nothing";
+                return RedirectToAction("Index");
+            }
+
+            foreach (var events in db.clubEvents.ToList())
+            {
+                if (events.PointKey == key.clubKey)
+                {
+
+                    if (events.Attendees.Select(a => a.Id).Contains(userId) == true)
+                    {
+                        TempData["Accepted"] = "Already";
+                        return RedirectToAction("Index");
+                    }
+
+                    if(events.ClubId != currentUser.ClubsId)
+                    {
+                        TempData["Accepted"] = "NotIn";
+                        return RedirectToAction("Index");
+                    }
+
+                    events.Attendees.Add(currentUser);
+                    currentUser.Points = currentUser.Points + events.PointValue;
+                    events.EventCount = events.EventCount + 1;
+                    TempData["Accepted"] = "Acc";
+                }
+            }
+
+            if (currentPoints == currentUser.Points)
+            {
+                TempData["Accepted"] = "Not";
+            }
+
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

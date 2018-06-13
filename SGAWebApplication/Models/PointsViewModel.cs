@@ -7,7 +7,7 @@ namespace SGAWebApplication.Models
 {
     public class PointsViewModel
     {
-        public ICollection<Events> events { get; set; }
-        public ICollection<ClubEvents> clubEvents { get; set; }
+        public string eventKey { get; set; }
+        public string clubKey { get; set; }
     }
 }
