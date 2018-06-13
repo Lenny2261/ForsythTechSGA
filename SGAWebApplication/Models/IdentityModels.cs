@@ -20,7 +20,7 @@ namespace SGAWebApplication.Models
         public string UserRole { get; set; }
         public Nullable<int> ClubsId { get; set; }
 
-
+        [ForeignKey("ClubsId")]
         public virtual Clubs Clubs { get; set; }
         public virtual ICollection<Events> Events { get; set; }
         public virtual ICollection<ClubEvents> ClubEvents { get; set; }

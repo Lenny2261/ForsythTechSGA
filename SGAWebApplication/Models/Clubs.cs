@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -22,6 +23,8 @@ namespace SGAWebApplication.Models
         public string AdvisorId { get; set; }
 
         public virtual ApplicationUser Advisor { get; set; }
+
+        [InverseProperty("Clubs")]
         public virtual ICollection<ApplicationUser> Members { get; set; }
     }
 }
