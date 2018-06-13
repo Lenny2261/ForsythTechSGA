@@ -1,0 +1,44 @@
+﻿@model SGAWebApplication.Models.PointsViewModel
+
+
+<br />
+<h1 class="text-center">Redeem Points</h1>
+
+<div class="container">
+    <div class="row about-tp mt-md-5 pt-5">
+        <div class="col-md-6 text-right">
+            @using (Html.BeginForm("Event", "Points", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Redeem your event points here.</h4>
+                <br />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Event Key", new { @class = "control-label" })
+                        @Html.TextBox("PointKey")
+                        @Html.ValidationMessage("PointKey", "", new { @class = "text-danger" })
+                </div>
+                <button type="submit" class="btn-primary">Get Those Points</button>
+            }
+            <br />
+            <br />
+        </div>
+            <div class="col-md-6">
+                @using (Html.BeginForm("ClubEvent", "Points", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Redeem your club event points here.</h4>
+                    <br />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.Label("Club Event Key", new { @class = "control-label" })
+                        @Html.TextBox("ClubKey")
+                        @Html.ValidationMessage("ClubKey", "", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" style="margin-left: 157px" class="btn-primary">Get Those Points</button>
+                }
+                <br />
+                <br />
+            </div>
+    </div>
+</div>

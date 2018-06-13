@@ -384,10 +384,10 @@
     <Content Include="Views\ClubEvents\Details.cshtml" />
     <Content Include="Views\ClubEvents\Edit.cshtml" />
     <Content Include="Views\ClubEvents\Index.cshtml" />
+    <Content Include="Views\Points\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Points\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

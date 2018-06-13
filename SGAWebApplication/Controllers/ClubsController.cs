@@ -49,7 +49,8 @@ namespace SGAWebApplication.Controllers
             var model = new ClubDetailsViewModel
             {
                 clubs = db.clubs.Find(id),
-                clubEvents = db.clubEvents.Where(e => e.ClubId == id).ToList()
+                clubEvents = db.clubEvents.Where(e => e.ClubId == id).ToList(),
+                advisor = db.Users.Find(db.clubs.Find(id).AdvisorId)
             };
             if (model.clubs == null || model.clubEvents == null)
             {

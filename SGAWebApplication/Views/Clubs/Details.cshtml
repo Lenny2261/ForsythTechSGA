@@ -1,34 +1,52 @@
-﻿@model SGAWebApplication.Models.Clubs
+﻿@model SGAWebApplication.Models.ClubDetailsViewModel
 
-@{
-    ViewBag.Title = "Details";
-}
 
-<h2>Details</h2>
+<section class="w3-agile-services py-5">
+    <div class="container py-md-4 mt-md-3">
+        <h3 class="heading-agileinfo">@Model.clubs.Name</h3>
+        <br />
+        <div class="text-center">
+            <img src="@Model.clubs.Picture" />
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Club Events</h3>
+                <br />
+                @foreach (var item in Model.clubEvents)
+                {
+                    <h4>@item.Name</h4>
+                    <p>@item.Description</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Date: @item.Date</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Point Value: @item.PointValue</p>
+                        </div>
+                    </div>
+                    <br>
+                }
+            </div>
+            <div class="col-md-6">
 
-<div>
-    <h4>Clubs</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                <h3>Advisor</h3>
+                <h5>@Model.advisor.FirstName @Model.advisor.LastName</h5>
+                <p>Contact Info: @Model.advisor.Email</p>
+                <br />
+                <h3>Members</h3>
+                <br />
+                @foreach (var item in Model.clubs.Members)
+                {
+                    <h5>@item.FirstName @item.LastName</h5>
+                    if (User.IsInRole("Teacher"))
+                    {
+                        <p>Contact Info: @item.Email</p>
+                    }
+                    <br />
+                }
+            </div>
+        </div>
+    </div>
+</section>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Budget)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Budget)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

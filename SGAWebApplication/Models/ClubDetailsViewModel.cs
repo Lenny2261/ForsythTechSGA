@@ -9,5 +9,6 @@ namespace SGAWebApplication.Models
     {
         public ICollection<ClubEvents> clubEvents { get; set; }
         public Clubs clubs { get; set; }
+        public ApplicationUser advisor { get; set; }
     }
 }
