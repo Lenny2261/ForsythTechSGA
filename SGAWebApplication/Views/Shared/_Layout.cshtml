@@ -46,10 +46,20 @@
                                     Club Info
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="@Url.Action("Index", "Clubs")">Clubs</a>
+                                    @if (!User.IsInRole("Teacher"))
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("Index", "Clubs")">Clubs</a>
+                                    }
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <a class="dropdown-item" href="@Url.Action("Index", "ClubEvents")">Your Clubs Events</a>
+                                        if (User.IsInRole("Teacher"))
+                                        {
+                                            <a class="dropdown-item" href="@Url.Action("Index", "Clubs")">Clubs You Advise</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dropdown-item" href="@Url.Action("Details", "Clubs")">Your Club</a>
+                                        }
                                     }
                                 </div>
                             </li>

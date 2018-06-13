@@ -11,7 +11,7 @@ using SGAWebApplication.Models;
 
 namespace SGAWebApplication.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class ClubsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -33,22 +33,71 @@ namespace SGAWebApplication.Controllers
         }
 
         // GET: Clubs/Details/5
-        [Authorize(Roles = "Teacher,Admin")]
+        [Authorize(Roles = "Teacher,Admin,Student")]
         public ActionResult Details(int? id)
         {
+            var currentUser = db.Users.Find(User.Identity.GetUserId());
+            if (id == null)
+            {
+                if (currentUser.ClubsId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                id = currentUser.ClubsId;
+            }
+            var model = new ClubDetailsViewModel
+            {
+                clubs = db.clubs.Find(id),
+                clubEvents = db.clubEvents.Where(e => e.ClubId == id).ToList()
+            };
+            if (model.clubs == null || model.clubEvents == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [Authorize(Roles = "Student,Admin")]
+        public ActionResult Join(int? id)
+        {
+            TempData["InClub"] = "";
+            var currentUser = db.Users.Find(User.Identity.GetUserId());
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clubs clubs = db.clubs.Find(id);
-            if (clubs == null)
+
+            if (currentUser.ClubsId != null)
             {
-                return HttpNotFound();
+                TempData["JoiningClub"] = id;
+                TempData["InClub"] = "Yes";
+                return RedirectToAction("Index", "Clubs");
             }
-            return View(clubs);
+
+            currentUser.ClubsId = id;
+            db.SaveChanges();
+            return RedirectToAction("Details", "Clubs", new { id = currentUser.ClubsId });
+        }
+
+        [Authorize(Roles = "Student,Admin")]
+        public ActionResult LeaveJoin()
+        {
+            var currentUser = db.Users.Find(User.Identity.GetUserId());
+
+            if (TempData["JoiningClub"] == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            currentUser.ClubsId = (int)TempData["JoiningClub"];
+            db.SaveChanges();
+            return RedirectToAction("Details", "Clubs", new { id = currentUser.ClubsId });
         }
 
         // GET: Clubs/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -58,6 +107,7 @@ namespace SGAWebApplication.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Budget")] Clubs clubs)
         {
@@ -72,6 +122,7 @@ namespace SGAWebApplication.Controllers
         }
 
         // GET: Clubs/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +141,7 @@ namespace SGAWebApplication.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Budget")] Clubs clubs)
         {
@@ -103,6 +155,7 @@ namespace SGAWebApplication.Controllers
         }
 
         // GET: Clubs/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -119,6 +172,7 @@ namespace SGAWebApplication.Controllers
 
         // POST: Clubs/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

@@ -209,6 +209,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ClubDetailsViewModel.cs" />
     <Compile Include="Models\ClubEvents.cs" />
     <Compile Include="Models\Clubs.cs" />
     <Compile Include="Models\Events.cs" />

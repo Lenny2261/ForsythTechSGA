@@ -22,3 +22,11 @@ a {
     a:hover {
         color: #007bff;
     }
+
+.swal-club a{
+    color: white;
+}
+
+.swal-club a:hover {
+    color: white;
+}

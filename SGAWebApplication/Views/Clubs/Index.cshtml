@@ -20,7 +20,7 @@
                                 }
                                 else
                                 {
-                                    <a href="@Url.Action("Join", "Clubs")">Join Now</a>
+                                    <a href="@Url.Action("Join", "Clubs", new { id = item.Id })">Join Now</a>
                                 }
                             }
                         </div>
@@ -30,3 +30,33 @@
         </div>
     </div>
 </section>
+
+@section scripts{
+
+<script type="text/javascript">
+
+    var inClub = '@TempData["InClub"]';
+
+    if (inClub == "Yes") {
+        const swalWithBootstrapButtons = swal.mixin({
+            confirmButtonClass: 'btn btn-success swal-club',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons({
+            title: 'Leave current club?',
+            text: "Do you want to leave your current club?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '<a href="@Url.Action("LeaveJoin", "Clubs")" class="swal-club">Yes, leave!</a>',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        })
+    }
+    else {
+
+    }
+</script>    
+    
+}
